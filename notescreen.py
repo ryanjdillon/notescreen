@@ -10,11 +10,6 @@ Run a message board from the terminal
 
 import datetime
 import os
-import re
-
-#################
-# Configuration #
-#################
 
 #############
 # Functions #
@@ -68,6 +63,9 @@ def get_terminal_width(fd=1):
 
     return width
 
+# TODO make this a function?
+#def printheader(header_message):
+
 ################
 # Main Program #
 ################
@@ -75,7 +73,7 @@ def get_terminal_width(fd=1):
 if __name__ == "__main__":
 
     # Message for the top half of the screen
-    my_message =  (
+    header_message =  (
      '   __     __     ______     __     ______   ______        __    __     _____ \n'
      '  /\ \  _ \ \   /\  == \   /\ \   /\__  _\ /\  ___\      /\ "-./  \   /\ ___\ \n'
      '  \ \ \/ ".\ \  \ \  __<   \ \ \  \/_/\ \/ \ \  __\      \ \ \-./\ \  \ \___\__ \n'
@@ -89,9 +87,10 @@ if __name__ == "__main__":
     t_height = get_terminal_height()
     t_width = get_terminal_width()
 
-    ########################################
-    #    Print Loop                        #
-    ########################################
+    ##############
+    # Print Loop #
+    ##############
+
     narf = 49
     message_list = list()
     datetime_list = list()
@@ -101,26 +100,34 @@ if __name__ == "__main__":
         os.system('cls' if os.name=='nt' else 'clear')
 
         # Print my message
-        num_message_lines = int(len(my_message)/message_width)
+        num_message_lines = int(len(header_message)/message_width)
         num_buffer_lines = int(((t_height*.3)-num_message_lines)/2.)
         print '\n' * num_buffer_lines
-        print my_message
+        print header_message
         print '\n' * num_buffer_lines
         print '=' * t_width
 
         # Print messages
         for i in range(len(message_list)):
-            print datetime_list[i], '-', message_list[i]
+            idx = (len(message_list) - 1) - i # print in reverse order
+            print datetime_list[idx], '-', message_list[idx]
+
+        # Fill in spaces to move user promt to bottom of screen
+        print '\n' * (int(t_height*.7)-len(message_list)-1)
 
         # Process user input
         input_message = 'Write Message and Press <Enter>:'
         input_len = 80
         cont_bool = False
         while cont_bool == False:
+
             input_str = raw_input(input_message)
             if len(input_str) > input_len:
-                print 'Error!$#$ Only',input_len,'characters allowed.'
+                print 'Error !$#$ Only',input_len,'characters allowed.'
             else:
+                # Save the message
                 cont_bool = True
                 message_list.append(input_str)
-                datetime_list.append((datetime.datetime.now()).strftime("%Y-%m-%d %H:%M"))
+                datetime_list.append((datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S"))
+
+

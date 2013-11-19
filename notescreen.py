@@ -64,9 +64,9 @@ def get_terminal_width(fd=1):
     return width
 
 def file_len(fname):
-    with open(fname) as f:
-        for i, l in enumerate(f):
-            pass
+    f = open(fname, 'rb')
+    for i, l in enumerate(f):
+        pass
     return i + 1
 
 

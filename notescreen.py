@@ -111,7 +111,7 @@ if __name__ == "__main__":
         print '\n' * num_buffer_lines
         for line in header_array:
             line_buff = ' '*int((t_width - len(line))/2.)
-            print line_buff, line#, line_buff
+            print line_buff, line
         print '\n' * num_buffer_lines
         print '=' * t_width
 

@@ -90,7 +90,7 @@ if __name__ == "__main__":
     # Read in header message from file
     num_message_lines, header_array = stringfile(message_file)
 
-    #Get the terminal size for setting print dimensions
+    #Get terminal size and Set window dimensions
     t_height = get_terminal_height()
     t_width = get_terminal_width()
 
@@ -117,6 +117,8 @@ if __name__ == "__main__":
 
         # Print messages
         for i in range(len(message_list)):
+            if i > (int(t_height*.7)-2):
+                break
             idx = (len(message_list) - 1) - i # print in reverse order
             print datetime_list[idx], '-', message_list[idx]
 

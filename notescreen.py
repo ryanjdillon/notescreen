@@ -63,8 +63,21 @@ def get_terminal_width(fd=1):
 
     return width
 
-# TODO make this a function?
-#def printheader(header_message):
+def file_len(fname):
+    with open(fname) as f:
+        for i, l in enumerate(f):
+            pass
+    return i + 1
+
+
+def stringfile(fname):
+    str_list = list()
+    with open(fname) as f:
+        for i, l in enumerate(f):
+            str_list.append(l.replace('\n','',1)) # append line to string
+            pass
+    i = i + 1
+    return i, str_list
 
 ################
 # Main Program #
@@ -72,16 +85,10 @@ def get_terminal_width(fd=1):
 
 if __name__ == "__main__":
 
-    # Message for the top half of the screen
-    header_message =  (
-     '   __     __     ______     __     ______   ______        __    __     _____ \n'
-     '  /\ \  _ \ \   /\  == \   /\ \   /\__  _\ /\  ___\      /\ "-./  \   /\ ___\ \n'
-     '  \ \ \/ ".\ \  \ \  __<   \ \ \  \/_/\ \/ \ \  __\      \ \ \-./\ \  \ \___\__ \n'
-      '   \ \__/".~\_\  \ \_\ \_\  \ \_\    \ \_\  \ \_____\     \ \_\ \ \_\  \ \_____\ \n'
-       '    \/_/   \/_/   \/_/ /_/   \/_/     \/_/   \/_____/      \/_/  \/_/   \/_____/'
-                  )
+    message_file = './message.cfg'
 
-    message_width = 80
+    # Read in header message from file
+    num_message_lines, header_array = stringfile(message_file)
 
     #Get the terminal size for setting print dimensions
     t_height = get_terminal_height()
@@ -100,10 +107,11 @@ if __name__ == "__main__":
         os.system('cls' if os.name=='nt' else 'clear')
 
         # Print my message
-        num_message_lines = int(len(header_message)/message_width)
         num_buffer_lines = int(((t_height*.3)-num_message_lines)/2.)
         print '\n' * num_buffer_lines
-        print header_message
+        for line in header_array:
+            line_buff = ' '*int((t_width - len(line))/2.)
+            print line_buff, line#, line_buff
         print '\n' * num_buffer_lines
         print '=' * t_width
 

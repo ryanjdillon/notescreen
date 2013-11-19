@@ -11,8 +11,8 @@ would like to display in the header.
 2. Then resize the terminal to the size you would like
 the program to run under
 
-3. Run the script::
+3. Run the script
 
-``python notescreen.py``
+   ``python notescreen.py``
 
 4. To end the program, enter **Ctrl+c**

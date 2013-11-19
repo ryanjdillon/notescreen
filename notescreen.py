@@ -63,21 +63,14 @@ def get_terminal_width(fd=1):
 
     return width
 
-def file_len(fname):
-    f = open(fname, 'rb')
-    for i, l in enumerate(f):
-        pass
-    return i + 1
-
-
 def stringfile(fname):
     str_list = list()
-    with open(fname) as f:
-        for i, l in enumerate(f):
-            str_list.append(l.replace('\n','',1)) # append line to string
-            pass
-    i = i + 1
-    return i, str_list
+    f = open(fname, 'rb')
+    i = 0
+    for i, l in enumerate(f):
+        str_list.append(l.replace('\n','',1)) # append line to string
+        pass
+    return i + 1, str_list
 
 ################
 # Main Program #
